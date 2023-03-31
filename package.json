@@ -12,7 +12,7 @@
     "dev": "tsc --build --force && node dist/index.js",
     "test": "jest"
   },
-  "keywords": [],
+  "keywords": ["ethers","ethereum","typescript"],
   "author": "Ismael Bautista <ismael.bautista.lara@gmail.com>",
   "repository": "git@ismaventuras.github.com:ethers-balances/ether-balances.git",
   "license": "MIT",
