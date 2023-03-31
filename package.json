@@ -1,0 +1,28 @@
+{
+  "name": "ethers-balances",
+  "version": "1.0.0",
+  "description": "Get ether and other tokens balances for an address from multiple chains",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "compile": "tsc",
+    "dev": "tsc --build --force && node dist/index.js",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "ethers": "^6.2.3"
+  }
+}
