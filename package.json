@@ -13,8 +13,9 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Ismael Bautista <ismael.bautista.lara@gmail.com>",
+  "repository": "git@ismaventuras.github.com:ethers-balances/ether-balances.git",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
