@@ -1,10 +1,10 @@
 import { toReadableAmount, toReadableEtherAmount } from "../helpers/conversion";
-import { getAllProviders } from "../providers";
-import {chains} from "../config";
-import type { Contract } from "ethers";
-import { getUSDCContracts, getUSDTContracts } from "./contracts";
+import { getAllProviders } from "./providers";
+import chains from "../config/chains";
+import { getContracts } from "./contracts";
 
-async function getEtherBalances(address: Address) {
+
+async function getEtherBalances(address: Address): Promise<EtherBalances> {
     const providers = getAllProviders()
 
     //generate a list of async calls
@@ -20,7 +20,7 @@ async function getEtherBalances(address: Address) {
         ...promises.map((promise, index) => {
             const chain = promise.key
             const amount = toReadableEtherAmount(results[index])
-            const symbol = chains[chain as keyof Chains].symbol
+            const symbol = chains[chain as keyof ChainList].info.symbol
             return {
                 [chain]: `${amount} ${symbol}`
             }
@@ -30,54 +30,42 @@ async function getEtherBalances(address: Address) {
     return balances
 }
 
-async function getERC20Balances(contracts: { [key: string]: Contract }, address: Address, decimals: number): Promise<{ [key in ValidChains]: string }> {
-    //generate a list of async calls
-    const promises = Object.entries(contracts).filter(([key]) => key in chains).map(([key, contract]) => {
-        return { key, promise: contract.balanceOf(address) }
-    })
-
-    // wait them to complete
-    const results = await Promise.all(promises.map(p => p.promise))
-
-    const balances = Object.assign(
-        {},
-        ...promises.map((promise, index) => {
-            const chain = promise.key
-            const amount = toReadableAmount(results[index], decimals)
-            return {
-                [chain]: amount
-            }
-        })
-    )
-    return balances;
-}
-
-async function getUSDCBalances(address:Address){    
-    return await getERC20Balances(getUSDCContracts(),address,6)
-}
-
-async function getUSDTBalances(address:Address){    
-    return await getERC20Balances(getUSDTContracts(),address,6)
-}
-
-async function getStableBalances(address: Address){
-    const USDC = await getUSDCBalances(address)
-    const USDT = await getUSDTBalances(address)
-    return {
-        USDC,
-        USDT
+type ERC20Balances = {
+    [key in ValidChains]: {
+        [key in ValidTokens]?: string
     }
 }
 
-export async function getBalances(address: Address){
+export async function getERC20Balances(address: Address): Promise<ERC20Balances> {
+    const contracts = getContracts()
+
+    const promises = Object.entries(contracts).map(async ([chainName, tokens]) => {
+        const balances = await Promise.all(Object.entries(tokens).map(async ([tokenName, contract]) => {
+            const balance = await contract.balanceOf(address)
+            const decimals = chains[chainName as keyof ChainList].tokens[tokenName as keyof ChainTokens]?.decimals || 18
+            return [tokenName, toReadableAmount(balance, decimals)]
+        }))
+        return [chainName, Object.fromEntries(balances)]
+    })
+
+    const result = Object.fromEntries(await Promise.all(promises))
+    return result
+
+}
+
+type Balances = {
+    etherBalances: EtherBalances
+    erc20Balances: ERC20Balances
+}
+export async function getBalances(address: Address): Promise<Balances> {
     const calls = [
         getEtherBalances(address),
-        getStableBalances(address)
+        getERC20Balances(address)
     ]
-    const [etherBalances, stableBalances] = await Promise.all(calls)
+    const [etherBalances, erc20Balances] = await Promise.all(calls)
 
     return {
         etherBalances,
-        stableBalances
-    }
+        erc20Balances
+    } as Balances
 }

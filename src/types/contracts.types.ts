@@ -1,8 +1,10 @@
 import type { Contract } from "ethers"
 
-export type Contracts = {
-    [key in ValidChains]: Contract
+
+export type ERC20Contracts = {
+    [key in ValidTokens]?: Contract
 }
-export type AllContracts = {
-    [key in ValidTokens]: Contracts
+
+export type ContractsByChain = {
+    [key in ValidChains]: ERC20Contracts
 }

@@ -1,12 +1,44 @@
-export const PUBLIC_RPC = {
+import { Multichain_USDC, USDC, USDT, Wormhole_USDC, Wormhole_USDT } from "./tokens"
+
+type ChainConstants = {
+    [key in ValidChains]: string
+}
+
+export const PUBLIC_RPC:ChainConstants = {
     "ethereum":"https://eth-mainnet.public.blastapi.io",
     "moonbeam":"https://moonbeam.public.blastapi.io",
     "moonriver":"https://moonriver.public.blastapi.io",
     "polygon":"https://polygon-mainnet.public.blastapi.io",
-    "binance":"https://bsc-mainnet.public.blastapi.io",
+    //"binance":"https://bsc-mainnet.public.blastapi.io",
     "avalanche":"https://ava-mainnet.public.blastapi.io/ext/bc/C/rpc",
-    "arbitrum":"https://arbitrum-one.public.blastapi.io",
-    "optimism":"https://optimism-mainnet.public.blastapi.io"
+    //"arbitrum":"https://arbitrum-one.public.blastapi.io",
+    //"optimism":"https://optimism-mainnet.public.blastapi.io"
+}
+
+
+
+const BLOCK_EXPLORERS:ChainConstants = {
+    "ethereum": "https://etherscan.io",
+    "moonbeam": "https://moonscan.io",
+    "moonriver": "https://moonriver.moonscan.io",
+    "polygon": "https://polygonscan.com",
+    "avalanche": "https://snowtrace.io/",
+}
+
+const ETHER_SYMBOLS:ChainConstants = {
+    "ethereum":"ETH",
+    "moonbeam":"GLMR",
+    "moonriver":"MOVR",
+    "polygon":"MATIC",
+    "avalanche":"AVAX"
+}
+
+const CHAIN_IDS:ChainConstants = {
+    "ethereum": "1",
+    "moonbeam": "1284",
+    "moonriver": "1285",
+    "polygon": "137",
+    "avalanche":"43114"
 }
 
 const PUBLIC_RPC_TESTNET = {
@@ -19,29 +51,107 @@ const PUBLIC_RPC_TESTNET = {
     "optimismGoerli":"https://optimism-goerli.public.blastapi.io",
 }
 
-const chains = {
+
+export const chains:ChainList = {
     ethereum:{
-        "name":"Ethereum",
-        "symbol":"ETH",
-        "blockExplorer":"https://etherscan.io",
-        "rpc":PUBLIC_RPC.ethereum,
-        "chainId":"1"
+        info:{
+            "name":"Ethereum",
+            "symbol":ETHER_SYMBOLS.ethereum,
+            "blockExplorer":BLOCK_EXPLORERS.ethereum,
+            "rpc":PUBLIC_RPC.ethereum,
+            "chainId": CHAIN_IDS.ethereum
+        },
+        tokens:{
+            "USDC": {
+                "address":USDC.chains.ethereum,
+                "decimals": USDC.info.decimals
+            },
+            "USDT": {
+                "address":USDT.chains.ethereum,
+                "decimals": USDT.info.decimals
+            }
+        }
     },
     moonbeam:{
-        "symbol":"GLMR",
-        "name":"Moonbeam",
-        "blockExplorer":"https://moonscan.io",
-        "rpc":PUBLIC_RPC.moonbeam,
-        "chainId":"1284"
+        info:{
+            "name":"Moonbeam",
+            "symbol":ETHER_SYMBOLS.moonbeam,
+            "blockExplorer":BLOCK_EXPLORERS.moonbeam,
+            "rpc":PUBLIC_RPC.moonbeam,
+            "chainId": CHAIN_IDS.moonbeam
+        },
+        tokens:{
+            "Wormhole_USDC": {
+                "address":Wormhole_USDC.chains.moonbeam,
+                "decimals": Wormhole_USDC.info.decimals
+            },
+            "Multichain_USDC": {
+                "address":Multichain_USDC.chains.moonbeam,
+                "decimals": Multichain_USDC.info.decimals
+            }
+        }
+    },
+    moonriver:{
+        info:{
+            "name":"Moonriver",
+            "symbol":ETHER_SYMBOLS.moonriver,
+            "blockExplorer":BLOCK_EXPLORERS.moonriver,
+            "rpc":PUBLIC_RPC.moonriver,
+            "chainId": CHAIN_IDS.moonriver
+        },
+        tokens:{
+
+        }
     },
     polygon:{
-        "symbol":"MATIC",
-        "name":"Polygon",
-        "blockExplorer":"https://polygonscan.com",
-        "rpc":PUBLIC_RPC.polygon,
-        "chainId":"137"
+        info:{
+            "name":"Polygon",
+            "symbol":ETHER_SYMBOLS.polygon,
+            "blockExplorer":BLOCK_EXPLORERS.polygon,
+            "rpc":PUBLIC_RPC.polygon,
+            "chainId": CHAIN_IDS.polygon
+        },
+        tokens:{
+            "USDC": {
+                "address":USDC.chains.polygon,
+                "decimals": USDC.info.decimals
+            },
+            "USDT": {
+                "address":USDT.chains.polygon,
+                "decimals": USDT.info.decimals
+            },
+            "Wormhole_USDC": {
+                "address":Wormhole_USDC.chains.polygon,
+                "decimals": Wormhole_USDC.info.decimals
+            },
+            "Wormhole_USDT": {
+                "address":Wormhole_USDT.chains.polygon,
+                "decimals": Wormhole_USDT.info.decimals
+            }
+        }
+    },
+    avalanche:{
+        info:{
+            "name":"Avalanche C-Chain",
+            "symbol":ETHER_SYMBOLS.avalanche,
+            "blockExplorer":BLOCK_EXPLORERS.avalanche,
+            "rpc":PUBLIC_RPC.avalanche,
+            "chainId": CHAIN_IDS.avalanche
+        },
+        tokens:{
+            "USDC": {
+                "address":USDC.chains.avalanche,
+                "decimals": USDC.info.decimals
+            },
+            "USDT": {
+                "address":USDT.chains.avalanche,
+                "decimals": USDT.info.decimals
+            },
+        }
     },
 }
+
+
 export default chains
 
 

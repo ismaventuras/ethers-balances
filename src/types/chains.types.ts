@@ -1,6 +1,10 @@
-type ValidChains = "ethereum" | "moonbeam" | "polygon";
-type ChainNames = "ethereum" | "moonbeam" | "polygon" | "avalanche" | "arbitrum"
-
+type ValidChains = 
+    "ethereum" | 
+    "moonbeam" | 
+    "moonriver"|
+    "polygon"  |
+    "avalanche"
+    
 type ChainInfo = {
     name:string
     symbol:string
@@ -9,6 +13,17 @@ type ChainInfo = {
     chainId:string
 }
 
-type Chains = {
-    [key in ValidChains]:ChainInfo    
+type ChainTokens = {
+    [key in ValidTokens]?:{
+        address:Address,
+        decimals:number
+    }
+}
+type ChainData = {
+    info:ChainInfo,
+    tokens:ChainTokens
+}
+
+type ChainList = {
+    [key in ValidChains]: ChainData
 }

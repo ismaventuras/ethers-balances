@@ -2,48 +2,24 @@
 
 import { Contract, JsonRpcProvider } from "ethers";
 import { ERC20_ABI } from "../helpers/constants";
-import { getAllProviders } from "../providers";
-import {tokens} from "../config"
-import type { AllContracts, Contracts } from "../types/contracts.types";
+import { getAllProviders } from "./providers";
+import type {  ContractsByChain } from "../types/contracts.types";
+import chains from "../config/chains";
+import { Providers } from "../types/providers.types";
 
 function getERC20Contract(address: string, provider: JsonRpcProvider) {
     return new Contract(address, ERC20_ABI, provider)
 }
 
-export function getERC20Contracts(token: Token): Contracts {
+export function getContracts() : ContractsByChain{
     const providers = getAllProviders()
-    var contracts: Contracts = Object.assign(
-        {},
-        ...Object.entries(token)
-            .filter(([key]) => (key as ValidChains) in token)
-            .map(([network, address]) => {
-                const provider = providers[network as ValidChains]
-                return { [network]: getERC20Contract(address, provider) } as { [key in ValidChains]: Contract }
-            }))
+    const contracts = Object.assign({}, ...Object.entries(chains).map( ([chainName, chain]) => {
+        const contracts = Object.assign({},...Object.entries(chain.tokens).map( ([key, token]) => {
+            return {[key]:getERC20Contract(token.address,providers[chainName as keyof Providers])} as {[key in ValidTokens]:Contract}
+        } ))
+        return {[chainName]:contracts}
+    }))
 
     return contracts
 }
-
-export function getUSDCContracts() {
-    return getERC20Contracts(tokens.USDC)
-}
-
-export function getUSDTContracts() {
-    return getERC20Contracts(tokens.USDT)
-}
-
-export function getTokenContracts() {
-
-    var contracts: AllContracts = Object.assign(
-        {},
-        ...Object.entries(tokens).map(([key, token]) => {
-            const tokenName = key as ValidTokens
-            const contracts = getERC20Contracts(token)
-            return { [tokenName]: contracts }
-        })
-    )
-
-    return contracts
-}
-
 
