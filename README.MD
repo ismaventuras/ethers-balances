@@ -8,7 +8,10 @@ Supported chains:
 
 - ethereum
 - moonbeam
+- moonriver
 - polygon
+- avalanche
+
 
 Supported Tokens:
 
@@ -17,8 +20,9 @@ Supported Tokens:
 - Wormhole_USDC
 - Wormhole_USDT
 - Multichain_USDC
-
-
+- Multichain_USDT
+- Multichain_DAI
+- xcKSM
 
 To use the tool, simply pass an address to the getBalances function and it will return the balances for the specified address on each supported chain.
 
@@ -61,11 +65,25 @@ output
   etherBalances: {
     ethereum: '0.0 ETH',
     moonbeam: '31.5793 GLMR',
-    polygon: '44287.5803 MATIC'
+    moonriver: '0.0 MOVR',
+    polygon: '44287.5803 MATIC',
+    avalanche: '65.3016 AVAX'
   },
-  stableBalances: {
-    USDC: { ethereum: '0.0', polygon: '16179.4030' },
-    USDT: { ethereum: '51390.1224', polygon: '0.0' }
+  erc20Balances: {
+    ethereum: { USDC: '0.0', USDT: '51390.1224' },
+    moonbeam: {
+      Wormhole_USDC: '0.0',
+      Multichain_USDC: '97.0206',
+      Multichain_USDT: '0.0'
+    },
+    moonriver: { Multichain_USDC: '5.5', Multichain_USDT: '0.0', xcKSM: '0.0' },
+    polygon: {
+      USDC: '16179.4030',
+      USDT: '0.0',
+      Wormhole_USDC: '16179.4030',
+      Wormhole_USDT: '11.8264'
+    },
+    avalanche: { USDC: '8353.9902', USDT: '2313.5021' }
   }
 }
 ```

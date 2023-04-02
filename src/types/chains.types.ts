@@ -15,15 +15,14 @@ type ChainInfo = {
 
 type ChainTokens = {
     [key in ValidTokens]?:{
-        address:Address,
+        address:string,
         decimals:number
     }
 }
-type ChainData = {
-    info:ChainInfo,
-    tokens:ChainTokens
-}
 
 type ChainList = {
-    [key in ValidChains]: ChainData
+    [key in ValidChains]: {
+        info:ChainInfo,
+        tokens:ChainTokens
+    }
 }

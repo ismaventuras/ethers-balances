@@ -1,4 +1,4 @@
-import { Multichain_USDC, USDC, USDT, Wormhole_USDC, Wormhole_USDT } from "./tokens"
+import { Multichain_DAI, Multichain_USDC, Multichain_USDT, USDC, USDT, Wormhole_USDC, Wormhole_USDT, xcKSM } from "./tokens"
 
 type ChainConstants = {
     [key in ValidChains]: string
@@ -63,11 +63,11 @@ export const chains:ChainList = {
         },
         tokens:{
             "USDC": {
-                "address":USDC.chains.ethereum,
+                "address":USDC.chains.ethereum!,
                 "decimals": USDC.info.decimals
             },
             "USDT": {
-                "address":USDT.chains.ethereum,
+                "address":USDT.chains.ethereum!,
                 "decimals": USDT.info.decimals
             }
         }
@@ -82,13 +82,21 @@ export const chains:ChainList = {
         },
         tokens:{
             "Wormhole_USDC": {
-                "address":Wormhole_USDC.chains.moonbeam,
+                "address":Wormhole_USDC.chains.moonbeam!,
                 "decimals": Wormhole_USDC.info.decimals
             },
             "Multichain_USDC": {
-                "address":Multichain_USDC.chains.moonbeam,
+                "address":Multichain_USDC.chains.moonbeam!,
                 "decimals": Multichain_USDC.info.decimals
-            }
+            },
+            "Multichain_USDT":{
+                "address":Multichain_USDT.chains.moonbeam!,
+                "decimals": Multichain_USDT.info.decimals
+            },
+            Multichain_DAI:{
+                address:Multichain_DAI.chains.moonbeam!,
+                decimals:Multichain_DAI.info.decimals
+            },
         }
     },
     moonriver:{
@@ -100,7 +108,22 @@ export const chains:ChainList = {
             "chainId": CHAIN_IDS.moonriver
         },
         tokens:{
-
+            Multichain_USDC:{
+                address:Multichain_USDC.chains.moonriver!,
+                decimals:Multichain_USDC.info.decimals
+            },
+            Multichain_USDT:{
+                address:Multichain_USDT.chains.moonriver!,
+                decimals:Multichain_USDT.info.decimals
+            },
+            Multichain_DAI:{
+                address:Multichain_DAI.chains.moonriver!,
+                decimals:Multichain_DAI.info.decimals
+            },
+            xcKSM:{
+                address:xcKSM.chains.moonriver!,
+                decimals:xcKSM.info.decimals
+            }
         }
     },
     polygon:{
@@ -113,19 +136,19 @@ export const chains:ChainList = {
         },
         tokens:{
             "USDC": {
-                "address":USDC.chains.polygon,
+                "address":USDC.chains.polygon!,
                 "decimals": USDC.info.decimals
             },
             "USDT": {
-                "address":USDT.chains.polygon,
+                "address":USDT.chains.polygon!,
                 "decimals": USDT.info.decimals
             },
             "Wormhole_USDC": {
-                "address":Wormhole_USDC.chains.polygon,
+                "address":Wormhole_USDC.chains.polygon!,
                 "decimals": Wormhole_USDC.info.decimals
             },
             "Wormhole_USDT": {
-                "address":Wormhole_USDT.chains.polygon,
+                "address":Wormhole_USDT.chains.polygon!,
                 "decimals": Wormhole_USDT.info.decimals
             }
         }
@@ -140,11 +163,11 @@ export const chains:ChainList = {
         },
         tokens:{
             "USDC": {
-                "address":USDC.chains.avalanche,
+                "address":USDC.chains.avalanche!,
                 "decimals": USDC.info.decimals
             },
             "USDT": {
-                "address":USDT.chains.avalanche,
+                "address":USDT.chains.avalanche!,
                 "decimals": USDT.info.decimals
             },
         }

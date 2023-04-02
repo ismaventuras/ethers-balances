@@ -1,4 +1,4 @@
-import { getBalances } from "../src"
+import { getBalances } from "../balances"
 
 describe('getBalances', () => {
     it('gets all balances', async () => {

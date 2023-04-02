@@ -1,7 +1,7 @@
 // File to save function to create contracts
 
 import { Contract, JsonRpcProvider } from "ethers";
-import { ERC20_ABI } from "../helpers/constants";
+import { ERC20_ABI } from "../helpers/abi";
 import { getAllProviders } from "./providers";
 import type {  ContractsByChain } from "../types/contracts.types";
 import chains from "../config/chains";

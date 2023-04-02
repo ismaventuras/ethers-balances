@@ -4,7 +4,7 @@ import chains from "../config/chains";
 import { getContracts } from "./contracts";
 
 
-async function getEtherBalances(address: Address): Promise<EtherBalances> {
+async function getEtherBalances(address: string): Promise<EtherBalances> {
     const providers = getAllProviders()
 
     //generate a list of async calls
@@ -36,7 +36,7 @@ type ERC20Balances = {
     }
 }
 
-export async function getERC20Balances(address: Address): Promise<ERC20Balances> {
+export async function getERC20Balances(address: string): Promise<ERC20Balances> {
     const contracts = getContracts()
 
     const promises = Object.entries(contracts).map(async ([chainName, tokens]) => {
@@ -57,7 +57,7 @@ type Balances = {
     etherBalances: EtherBalances
     erc20Balances: ERC20Balances
 }
-export async function getBalances(address: Address): Promise<Balances> {
+export async function getBalances(address: string): Promise<Balances> {
     const calls = [
         getEtherBalances(address),
         getERC20Balances(address)

@@ -1,4 +1,4 @@
-import {fromReadableAmount, toReadableAmount, toReadableEtherAmount} from "../src/helpers/conversion"
+import {fromReadableAmount, toReadableAmount, toReadableEtherAmount} from "../conversion"
 
 describe('conversion', () => {
     it('fromReadableAmount', async () => {

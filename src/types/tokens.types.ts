@@ -3,62 +3,97 @@ type ValidTokens =
     "USDT" | 
     "Wormhole_USDC" | 
     "Wormhole_USDT" |
-    "Multichain_USDC"
+    "Multichain_USDC" | 
+    "Multichain_USDT" |
+    "Multichain_DAI" |
+    "xcKSM"
 
-type TypeWormhole_USDC = {
+type Token = {
     info:{
         name:string
         symbol:string
-        decimals:6
+        decimals:number
     }
     chains:{
-        "moonbeam":Address,
-        "polygon": Address,
-    }
-}
-type TypeMultichain_USDC = {
-    info:{
-        name:string
-        symbol:string
-        decimals:6
-    }
-    chains:{
-        "moonbeam":Address,
+        [key in ValidChains]?: string
     }
 }
 
-type TypeWormhole_USDT = {
-    info:{
-        name:string
-        symbol:string
-        decimals:6
-    }
-    chains:{
-        "polygon": Address,
-    }
-}
-type TypeUSDT = {
-    info:{
-        name:string
-        symbol:string
-        decimals:6
-    }
-    chains:{
-        "ethereum":Address,
-        "polygon": Address,
-        "avalanche": Address    
-    }
-}
+// type TypeWormhole_USDC = {
+//     info:{
+//         name:string
+//         symbol:string
+//         decimals:6
+//     }
+//     chains:{
+//         "moonbeam":string,
+//         "polygon": string,
+//     }
+// }
+// type TypeMultichain_USDC = {
+//     info:{
+//         name:string
+//         symbol:string
+//         decimals:6
+//     }
+//     chains:{
+//         "moonbeam":string,
+//         "moonriver":string
+//     }
+// }
+// type TypeMultichain_USDT = {
+//     info:{
+//         name:string
+//         symbol:string
+//         decimals:6
+//     }
+//     chains:{
+//         "moonriver":string,
+//     }
+// }
+// type TypeMultichain_DAI = {
+//     info:{
+//         name:string
+//         symbol:string
+//         decimals:18
+//     }
+//     chains:{
+//         "moonriver":string,
+//     }
+// }
 
-type TypeUSDC = {
-    info:{
-        name:string
-        symbol:string
-        decimals:6
-    }
-    chains:{
-        "ethereum":Address,
-        "polygon": Address,
-        "avalanche": Address    
-    }
-}
+// type TypeWormhole_USDT = {
+//     info:{
+//         name:string
+//         symbol:string
+//         decimals:6
+//     }
+//     chains:{
+//         "polygon": string,
+//     }
+// }
+// type TypeUSDT = {
+//     info:{
+//         name:string
+//         symbol:string
+//         decimals:6
+//     }
+//     chains:{
+//         "ethereum":string,
+//         "polygon": string,
+//         "avalanche": string    
+//     }
+// }
+
+// type TypeUSDC = {
+//     info:{
+//         name:string
+//         symbol:string
+//         decimals:6
+//     }
+//     chains:{
+//         "ethereum":string,
+//         "polygon": string,
+//         "avalanche": string    
+//     }
+// }
